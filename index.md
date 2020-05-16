@@ -1,0 +1,75 @@
+<html>
+
+<!--bruh! -->
+
+<head>
+
+<title> Elisabeth's website </title>
+<style>
+
+.heading {
+color:08ffef;
+font-family:fantasy
+}
+
+body{
+background-color:fcffb3;
+ margin-left: auto;
+    margin-right: auto;
+    width: 45em
+}
+
+h2{
+font-family:cursive;
+}
+
+#title{
+font-size:55;
+}
+
+a{ 
+text-decoration: none;
+}
+</style>
+
+</head>
+
+<body>
+<h1 class="heading" id="Title"> <strong> Elisabeth's Website </strong> </h1>
+<br> <br> 
+<h1 class="heading"> About </h1>
+<h2> <strong> This a website I'm using for a contest. I guess I'll write some articles on <b> anime and other stuff I like. <br> If ya'll want I could write something about the disney cruise line since I know a lot about it.
+ <br> Thank you for coming and checking it out!</strong> </h2>
+
+
+<h1 class="heading"> Table of Contents </h1>
+<h2><a href="#Disney Cruise Line">Disney Cruise Line</a>
+</h2>
+
+<br> <br> 
+<h1 class="heading" id="Disney Cruise Line"> Disney Cruise Line </h1>
+<h2> Currently, there are 4 disney cruise boats.<li> Disney Dream </li>
+<li> Disney Fantasy </li> <li> Disney Magic </li> <li> Disney Wonder </li>
+</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
