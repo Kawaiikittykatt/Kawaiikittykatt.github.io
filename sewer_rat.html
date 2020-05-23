@@ -1,0 +1,166 @@
+<html>
+
+<head> 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style> h1{ color:#5F4B8BFF; } canvas { border:2px solid #5F4B8BFF; } 
+</style> 
+
+</head> 
+<body onload="startGame()"> 
+
+<h1> Hi </h1> 
+
+<script> 
+var rat; 
+
+function startGame() {  
+Area.start();
+rat = new component(30, 30, "#E69A8DFF", 10, 150); 
+pipes = new component(285, 25, "grey", 300, 120);
+
+}
+
+var Area = { 
+canvas : document.createElement("canvas"), 
+start : function() { 
+this.canvas.width = 600; 
+this.canvas.height = 400; 
+this.context = this.canvas.getContext("2d"); 
+document.body.insertBefore(this.canvas,
+document.body.childNodes[0]); 
+this.interval = setInterval(upArea, 20); 
+}, 
+
+clear : function() { 
+this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+  },
+
+stop : function() {
+clearInterval(this.interval);
+}
+}
+
+
+function component(height,width, color, x, y) { 
+this.height = height; 
+this.width = width;
+this.speedx = 0;
+this.speedy = 0;
+this.x = x; 
+this.y = y; 
+this.update = function() { 
+ctx = Area.context; 
+ctx.fillStyle = color; 
+ctx.fillRect(this.x, this.y, this.width, this.height);
+ } 
+
+this.newPos = function(){
+this.x +=this.speedx;
+this.y +=this.speedy;
+  }
+this.crashWith = function(otherobj) {
+        var mileft = this.x;
+       
+        var miright = this.x + (this.width);
+        
+        var mitop = this.y;
+        
+        var mibutt = this.y + (this.height);
+        
+        var oleft = otherobj.x;
+
+        var oight = otherobj.x + (otherobj.width);
+
+        var otop = otherobj.y;
+
+        var obutt = otherobj.y + (otherobj.height);
+       
+        var crash = true;
+        
+        if ((mibutt < otop) || (mitop > obutt) || (miright < oleft) || (mileft > oright)) {
+            crash = false;
+        }
+        return crash;
+
+}
+}
+
+
+function upArea(){ 
+if (rat.crashWith(pipes)) {
+Area.stop();
+} 
+else{
+Area.clear(); 
+pipes.update();
+pipes.x+= -1;
+rat.newPos();
+rat.update(); 
+} 
+}
+function up_up_up_uppiee() {
+rat.speedy -=1;
+}
+
+function down() {
+rat.speedy +=1;
+}
+
+function to_da_left_to_da_left() {
+rat.speedx -=1;
+}
+
+function right_foot_up() {
+rat.speedx +=1;
+}
+
+
+function stoprat() {
+rat.speedx = 0;
+rat.speedy = 0;
+}
+
+
+</script> 
+
+<div style="text-align: center; width: 480px;">
+
+<button onmousedown = "up_up_up_uppiee()"
+onmouseup = "stoprat()" 
+ontouchstart = "up_up_up_uppiee()" > 
+<strong> UP </strong> 
+</button> 
+
+<br> <br>
+
+<button onmousedown = "to_da_left_to_da_left()"
+onmouseup = "stoprat()" 
+ontouchstart = "to_da_left_to_da_left()">
+<strong> LEFT </strong> 
+</button> 
+
+<button onmousedown = "right_foot_up()"
+onmouseup = "stoprat()" 
+ontouchstart = "right_foot_up()"> 
+<strong> Right </strong> 
+</button> 
+
+<br> <br>
+
+<button onmousedown = "down()"
+onmouseup = "stoprat()" 
+ontouchstart = "down()"> 
+<strong> DOWN </strong> 
+</button> 
+
+</div>
+
+</body> 
+
+
+
+
+
+</html>
