@@ -98,10 +98,16 @@ return;
 
 Area.clear();
 Area.frameNo += 1; 
-if (Area.frameNo == 1 || interval(150)) {
+if (Area.frameNo == 1 || interval(175)) {
 x = Area.canvas.width;
-y = Area.canvas.height - 200
-pipes.push(new component(200, 25, "grey", x, y));
+    minHeight = 20;
+    maxHeight = 200;
+    height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight);
+    minGap = 50;
+    maxGap = 200;
+    gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap);
+pipes.push(new component(height, 25, "grey", x, 0));
+pipes.push(new component(x - height - gap, 25, "grey", x, height + gap));
 }
 
 for (E = 0; E < pipes.length; E += 1) {
