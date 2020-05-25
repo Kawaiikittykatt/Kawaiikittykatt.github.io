@@ -8,17 +8,18 @@
 </style> 
 
 </head> 
- 
 <body onload="startGame()"> 
-  <p> up goes up, down goes down, ect.... </p>
+
+<h1> Hi </h1> 
+
 <script> 
 var rat; 
+var pipes = [];
+
 
 function startGame() {  
 Area.start();
 rat = new component(30, 30, "#E69A8DFF", 10, 150); 
-pipes = new component(285, 25, "grey", 300, 120);
-
 }
 
 var Area = { 
@@ -29,6 +30,7 @@ this.canvas.height = 400;
 this.context = this.canvas.getContext("2d"); 
 document.body.insertBefore(this.canvas,
 document.body.childNodes[0]); 
+this.frameNo = 0; 
 this.interval = setInterval(upArea, 20); 
 }, 
 
@@ -41,6 +43,10 @@ clearInterval(this.interval);
 }
 }
 
+function interval(n) {
+if ((Area.frameNo / n ) % 1 == 0) {return true;}
+return false;
+}
 
 function component(height,width, color, x, y) { 
 this.height = height; 
@@ -59,45 +65,51 @@ this.newPos = function(){
 this.x +=this.speedx;
 this.y +=this.speedy;
   }
-this.crashWith = function(otherobj) {
-        var mileft = this.x;
-       
-        var miright = this.x + (this.width);
-        
-        var mitop = this.y;
-        
-        var mibutt = this.y + (this.height);
-        
-        var oleft = otherobj.x;
 
-        var oight = otherobj.x + (otherobj.width);
-
-        var otop = otherobj.y;
-
-        var obutt = otherobj.y + (otherobj.height);
-       
-        var crash = true;
-        
-        if ((mibutt < otop) || (mitop > obutt) || (miright < oleft) || (mileft > oright)) {
-            crash = false;
-        }
-        return crash;
-
-}
+ this.crashWith = function(otherobj) {
+    var left = this.x;
+    var right = this.x + (this.width);
+    var top = this.y;
+    var bottom = this.y + (this.height);
+    var otherleft = otherobj.x;
+    var otherright = otherobj.x + (otherobj.width);
+    var othertop = otherobj.y;
+    var otherbottom = otherobj.y + (otherobj.height);
+    var crash = true;
+    if ((bottom < othertop) ||
+    (top > otherbottom) ||
+    (right < otherleft) ||
+    (left > otherright)) {
+      crash = false;
+    }
+    return crash;
+  }
 }
 
 
 function upArea(){ 
-if (rat.crashWith(pipes)) {
+var x, y;
+for (E = 0; E < pipes.length; E+= 1) {
+if (rat.crashWith(pipes[E])) {
 Area.stop();
+return;
+}
 } 
-else{
-Area.clear(); 
-pipes.update();
-pipes.x+= -1;
+
+Area.clear();
+Area.frameNo += 1; 
+if (Area.frameNo == 1 || interval(150)) {
+x = Area.canvas.width;
+y = Area.canvas.height - 200
+pipes.push(new component(200, 25, "grey", x, y));
+}
+
+for (E = 0; E < pipes.length; E += 1) {
+pipes[E].x += -1;
+pipes[E].update();
+}
 rat.newPos();
-rat.update(); 
-} 
+rat.update();
 }
 function up_up_up_uppiee() {
 rat.speedy -=1;
@@ -159,7 +171,8 @@ ontouchstart = "down()">
 </body> 
 
 
-
-
-
 </html>
+
+
+
+
