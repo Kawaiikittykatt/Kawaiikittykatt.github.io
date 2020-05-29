@@ -4,7 +4,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<style> h1{ color:#5F4B8BFF; } canvas { border:2px solid #5F4B8BFF; } 
+<style>
+ h1{ color:#5F4B8BFF; 
+}
+ 
+canvas { 
+border:2px solid #5F4B8BFF; 
+ } 
+
+rat {
+border:2px solid #5F4B8BFF;
+}
 </style> 
 
 </head> 
@@ -18,8 +28,9 @@ var pipes = [];
 
 
 function startGame() {  
-Area.start();
-rat = new component(30, 30, "#E69A8DFF", 10, 150); 
+Area.start(); 
+rat = new component(45,45,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image"); 
+Score = new component("Consolas", "30px", "black", 500, "text")
 }
 
 var Area = { 
@@ -48,7 +59,12 @@ if ((Area.frameNo / n ) % 1 == 0) {return true;}
 return false;
 }
 
-function component(height,width, color, x, y) { 
+function component(height,width, color, x, y, type) {
+this.type = type; 
+  if (type == "image") {
+    this.image = new Image();
+    this.image.src = color;
+}
 this.height = height; 
 this.width = width;
 this.speedx = 0;
@@ -57,10 +73,18 @@ this.x = x;
 this.y = y; 
 this.update = function() { 
 ctx = Area.context; 
+    if (type == "image") {
+      ctx.drawImage(this.image,
+        this.x,
+        this.y,
+        this.width, this.height);
+}
+
+else {
 ctx.fillStyle = color; 
 ctx.fillRect(this.x, this.y, this.width, this.height);
  } 
-
+}
 this.newPos = function(){
 this.x +=this.speedx;
 this.y +=this.speedy;
@@ -112,8 +136,11 @@ pipes.push(new component(x - height - gap, 25, "grey", x, height + gap));
 
 for (E = 0; E < pipes.length; E += 1) {
 pipes[E].x += -1;
+pipes[E].newPos();
 pipes[E].update();
 }
+Score.text = "SCORE: " + Area.frameNo;
+Score.update();
 rat.newPos();
 rat.update();
 }
@@ -178,7 +205,6 @@ ontouchstart = "down()">
 
 
 </html>
-
 
 
 
