@@ -1,48 +1,52 @@
 <html>
 
-<head> 
+<head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <style>
+ h1{ color:#5F4B8BFF;
+}
  
-canvas { 
-border:2px solid #5F4B8BFF; 
- } 
+canvas {
+border:2px solid #5F4B8BFF;
+ }
 
 rat {
 border:2px solid #5F4B8BFF;
 }
-</style> 
+</style>
 
-</head> 
-<body onload="startGame()"> 
- 
-<script> 
-var rat; 
+</head>
+<body onload="startGame()">
+
+<h1> Hi </h1>
+
+<script>
+var rat;
 var pipes = [];
-
+var Score;
 
 function startGame() {  
-Area.start(); 
-rat = new component(45,45,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image"); 
-Score = new component("Consolas", "30px", "black", 500, "text")
+Area.start();
+rat = new component(40,40,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image");
+Score = new component("Consolas", "30px", "black", 30 ,40, "text");
 }
 
-var Area = { 
-canvas : document.createElement("canvas"), 
-start : function() { 
-this.canvas.width = 600; 
-this.canvas.height = 400; 
-this.context = this.canvas.getContext("2d"); 
+var Area = {
+canvas : document.createElement("canvas"),
+start : function() {
+this.canvas.width = 600;
+this.canvas.height = 400;
+this.context = this.canvas.getContext("2d");
 document.body.insertBefore(this.canvas,
-document.body.childNodes[0]); 
-this.frameNo = 0; 
-this.interval = setInterval(upArea, 20); 
-}, 
+document.body.childNodes[0]);
+this.frameNo = 0;
+this.interval = setInterval(upArea, 20);
+},
 
-clear : function() { 
-this.context.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+clear : function() {
+this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
 stop : function() {
@@ -56,30 +60,34 @@ return false;
 }
 
 function component(height,width, color, x, y, type) {
-this.type = type; 
+this.type = type;
   if (type == "image") {
     this.image = new Image();
     this.image.src = color;
 }
-this.height = height; 
+this.height = height;
 this.width = width;
 this.speedx = 0;
 this.speedy = 0;
-this.x = x; 
-this.y = y; 
-this.update = function() { 
-ctx = Area.context; 
+this.x = x;
+this.y = y;  
+this.update = function() {
+ctx = Area.context;
     if (type == "image") {
       ctx.drawImage(this.image,
         this.x,
         this.y,
         this.width, this.height);
 }
-
+else if (this.type == "text"){
+ctx.font = this.width + " " + this.height;
+ctx.fillStyle = color;
+ctx.fillText(this.text, this.x, this.y,);
+}
 else {
-ctx.fillStyle = color; 
+ctx.fillStyle = color;
 ctx.fillRect(this.x, this.y, this.width, this.height);
- } 
+ }
 }
 this.newPos = function(){
 this.x +=this.speedx;
@@ -107,17 +115,17 @@ this.y +=this.speedy;
 }
 
 
-function upArea(){ 
+function upArea(){
 var x, y;
 for (E = 0; E < pipes.length; E+= 1) {
 if (rat.crashWith(pipes[E])) {
 Area.stop();
 return;
 }
-} 
+}
 
 Area.clear();
-Area.frameNo += 1; 
+Area.frameNo += 1;
 if (Area.frameNo == 1 || interval(175)) {
 x = Area.canvas.width;
     minHeight = 20;
@@ -163,44 +171,41 @@ rat.speedy = 0;
 }
 
 
-</script> 
+</script>
 
 <div style="text-align: center; width: 480px;">
 
 <button onmousedown = "up_up_up_uppiee()"
-onmouseup = "stoprat()" 
-ontouchstart = "up_up_up_uppiee()" > 
-<strong> UP </strong> 
-</button> 
+onmouseup = "stoprat()"
+ontouchstart = "up_up_up_uppiee()" >
+<strong> UP </strong>
+</button>
 
 <br> <br>
 
 <button onmousedown = "to_da_left_to_da_left()"
-onmouseup = "stoprat()" 
+onmouseup = "stoprat()"
 ontouchstart = "to_da_left_to_da_left()">
-<strong> LEFT </strong> 
-</button> 
+<strong> LEFT </strong>
+</button>
 
 <button onmousedown = "right_foot_up()"
-onmouseup = "stoprat()" 
-ontouchstart = "right_foot_up()"> 
-<strong> Right </strong> 
-</button> 
+onmouseup = "stoprat()"
+ontouchstart = "right_foot_up()">
+<strong> Right </strong>
+</button>
 
 <br> <br>
 
 <button onmousedown = "down()"
-onmouseup = "stoprat()" 
-ontouchstart = "down()"> 
-<strong> DOWN </strong> 
-</button> 
+onmouseup = "stoprat()"
+ontouchstart = "down()">
+<strong> DOWN </strong>
+</button>
 
 </div>
 
-</body> 
+</body>
 
 
 </html>
-
-
-
