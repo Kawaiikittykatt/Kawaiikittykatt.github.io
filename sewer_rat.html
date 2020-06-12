@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -26,13 +27,33 @@ border:2px solid #5F4B8BFF;
 var rat;
 var pipes = [];
 var Score;
+var miSound;
+var bkSong;
 
 function startGame() {  
 Area.start();
 rat = new component(40,40,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image");
 Score = new component("Consolas", "30px", "black", 30 ,40, "text");
+miSound = new sound("bounce.mp3");
+bkSong = new sound("gametheme.mp3");
 }
 
+
+
+function sound(src){
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("control","none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+    this.sound.play();
+  }
+ this.stop = function(){
+     this.sound.pause();
+ }
+}
 var Area = {
 canvas : document.createElement("canvas"),
 start : function() {
@@ -119,12 +140,14 @@ function upArea(){
 var x, y;
 for (E = 0; E < pipes.length; E+= 1) {
 if (rat.crashWith(pipes[E])) {
-Area.stop();
-return;
+    miSound.play();
+    Area.stop();
+    return;
 }
 }
 
 Area.clear();
+
 Area.frameNo += 1;
 if (Area.frameNo == 1 || interval(175)) {
 x = Area.canvas.width;
