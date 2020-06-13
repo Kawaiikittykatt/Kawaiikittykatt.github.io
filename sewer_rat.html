@@ -31,11 +31,12 @@ var miSound;
 var bkSong;
 
 function startGame() {  
-Area.start();
 rat = new component(40,40,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image");
 Score = new component("Consolas", "30px", "black", 30 ,40, "text");
 miSound = new sound("bounce.mp3");
 bkSong = new sound("gametheme.mp3");
+bkSong.play();
+Area.start();
 }
 
 
