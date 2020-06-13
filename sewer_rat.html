@@ -127,6 +127,7 @@ var x, y;
 for (E = 0; E < pipes.length; E+= 1) {
 if (rat.crashWith(pipes[E])) {
     miSound.play();
+    bkSong.stop();
     Area.stop();
     return;
 }
