@@ -30,6 +30,16 @@ var Score;
 var miSound;
 var bkSong;
 
+function startGame() {  
+rat = new component(40,40,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image");
+Score = new component("Consolas", "30px", "black", 30 ,40, "text");
+miSound = new sound("bounce.mp3");
+bkSong = new sound("gametheme.mp3");
+bkSong.play();
+Area.start();
+}
+
+
 var Area = {
 canvas : document.createElement("canvas"),
 start : function() {
@@ -42,7 +52,26 @@ this.frameNo = 0;
 this.interval = setInterval(upArea, 20);
 },
 
+clear : function() {
+this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  },
 
+stop : function() {
+clearInterval(this.interval);
+}
+}
+
+function interval(n) {
+if ((Area.frameNo / n ) % 1 == 0) {return true;}
+return false;
+}
+
+function component(height,width, color, x, y, type) {
+this.type = type;
+  if (type == "image") {
+    this.image = new Image();
+    this.image.src = color;
+}
 this.height = height;
 this.width = width;
 this.speedx = 0;
@@ -145,35 +174,6 @@ function sound(src) {
   }
 }
 
- function startGame() {  
-rat = new component(40,40,"https://art.pixilart.com/12740827e0e2de2.png", 10, 150,"image");
-Score = new component("Consolas", "30px", "black", 30 ,40, "text");
-miSound = new sound("bounce.mp3");
-bkSong = new sound("gametheme.mp3");
-bkSong.play();
-Area.start();
-}
-
-clear : function() {
-this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  },
-
-stop : function() {
-clearInterval(this.interval);
-}
-}
-
-function interval(n) {
-if ((Area.frameNo / n ) % 1 == 0) {return true;}
-return false;
-}
-
-function component(height,width, color, x, y, type) {
-this.type = type;
-  if (type == "image") {
-    this.image = new Image();
-    this.image.src = color;
-}
 
 function up_up_up_uppiee() {
 rat.speedy -=1;
